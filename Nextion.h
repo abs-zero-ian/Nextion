@@ -26,6 +26,7 @@
 #include "NexCrop.h"
 #include "NexGauge.h"
 #include "NexHotspot.h"
+#include "NexNumber.h"
 #include "NexPage.h"
 #include "NexPicture.h"
 #include "NexProgressBar.h"

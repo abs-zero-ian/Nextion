@@ -15,7 +15,7 @@
 #include "NexHardware.h"
 #include "SoftwareSerial.h"
 
-SoftwareSerial nexSerial(4, 5); // RX, TX
+SoftwareSerial nexSerial(14, 12); // RX, TX  (D5, D6)
 
 #define NEX_RET_CMD_FINISHED            (0x01)
 #define NEX_RET_EVENT_LAUNCHED          (0x88)
@@ -225,7 +225,7 @@ bool nexInit(void)
     bool ret1 = false;
     bool ret2 = false;
     
-    dbSerialBegin(9600);
+    dbSerialBegin(115200);
     nexSerial.begin(9600);
     sendCommand("");
     sendCommand("bkcmd=1");
