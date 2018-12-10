@@ -1,10 +1,11 @@
 /**
- * @file NexButton.h
+ * @file NexDualStateButton.h
  *
- * The definition of class NexButton. 
+ * The definition of class NexDSButton. 
  *
- * @author Wu Pengfei (email:<pengfei.wu@itead.cc>)
- * @date 2015/8/13
+ * @author  huang xianming (email:<xianming.huang@itead.cc>)
+ * @date    2015/11/11
+ *   
  *
  * @copyright 
  * Copyright (C) 2014-2015 ITEAD Intelligent Systems Co., Ltd. \n
@@ -14,8 +15,8 @@
  * the License, or (at your option) any later version.
  */
 
-#ifndef __NEXBUTTON_H__
-#define __NEXBUTTON_H__
+#ifndef __NEXDSBUTTON_H__
+#define __NEXDSBUTTON_H__
 
 #include "NexTouch.h"
 #include "NexHardware.h"
@@ -25,22 +26,37 @@
  */
 
 /**
- * NexButton component. 
+ * NexDSButton component. 
  *
  * Commonly, you want to do something after push and pop it. It is recommanded that only
  * call @ref NexTouch::attachPop to satisfy your purpose. 
  * 
  * @warning Please do not call @ref NexTouch::attachPush on this component, even though you can. 
  */
-class NexButton: public NexTouch
+class NexDSButton: public NexTouch
 {
 public: /* methods */
-
     /**
      * @copydoc NexObject::NexObject(uint8_t pid, uint8_t cid, const char *name);
      */
-    NexButton(uint8_t pid, uint8_t cid, const char *name);
-
+    NexDSButton(uint8_t pid, uint8_t cid, const char *name);
+    
+    /**
+     * Get number attribute of component.
+     *
+     * @param number - buffer storing text returned. 
+     * @return The real length of text returned. 
+     */
+    bool getValue(uint32_t *number);
+    
+    /**
+     * Set number attribute of component.
+     *
+     * @param number - number buffer. 
+     * @return true if success, false for failure. 
+     */
+    bool setValue(uint32_t number);
+	
     /**
      * Get text attribute of component.
      *
@@ -48,84 +64,68 @@ public: /* methods */
      * @param len - length of buffer. 
      * @return The real length of text returned. 
      */
-    uint16_t getText(char *buffer, uint16_t len);    
-
+    uint16_t getText(char *buffer, uint16_t len);
+	
     /**
      * Set text attribute of component.
      *
      * @param buffer - text buffer terminated with '\0'. 
      * @return true if success, false for failure. 
      */
-    bool setText(const char *buffer);   
-
-    /**
-     * Get bco attribute of component
-     *
-     * @param number - buffer storing data return
-     * @return the length of the data 
-     */
-    uint32_t Get_background_color_bco(uint32_t *number);
+    bool setText(const char *buffer);
 	
     /**
-     * Set bco attribute of component
+     * Get bco0 attribute of component
+     *
+     * @param number - buffer storing data retur
+     * @return the length of the data 
+     */
+    uint32_t Get_state0_color_bco0(uint32_t *number);
+	
+    /**
+     * Set bco0 attribute of component
      *
      * @param number - To set up the data
      * @return true if success, false for failure
      */
-    bool Set_background_color_bco(uint32_t number);
+    bool Set_state0_color_bco0(uint32_t number);
 	
     /**
-     * Get bco2 attribute of component
+     * Get bco1 attribute of component
      *
-     * @param number - buffer storing data return
+     * @param number - buffer storing data retur
      * @return the length of the data 
      */
-    uint32_t Get_press_background_color_bco2(uint32_t *number);	
+    uint32_t Get_state1_color_bco1(uint32_t *number);	
 
     /**
-     * Set bco2 attribute of component
+     * Set bco1 attribute of component
      *
      * @param number - To set up the data
      * @return true if success, false for failure
      */
-    bool Set_press_background_color_bco2(uint32_t number);			
-	
+    bool Set_state1_color_bco1(uint32_t number);	
+
     /**
      * Get pco attribute of component
      *
-     * @param number - buffer storing data return
+     * @param number - buffer storing data retur
      * @return the length of the data 
      */
-    uint32_t Get_font_color_pco(uint32_t *number);		
-	
+    uint32_t Get_font_color_pco(uint32_t *number);	
+
     /**
      * Set pco attribute of component
      *
      * @param number - To set up the data
      * @return true if success, false for failure
      */
-    bool Set_font_color_pco(uint32_t number);			
-	
-    /**
-     * Get pco2 attribute of component
-     *
-     * @param number - buffer storing data return
-     * @return the length of the data 
-     */
-    uint32_t Get_press_font_color_pco2(uint32_t *number);		
-	
-    /**
-     * Set pco2 attribute of component
-     *
-     * @param number - To set up the data
-     * @return true if success, false for failure
-     */
-    bool Set_press_font_color_pco2(uint32_t number);			
-	
+    bool Set_font_color_pco(uint32_t number);		
+
     /**
      * Get xcen attribute of component
      *
-     * @param number - buffer storing data return
+     * @param number - buffer storing data retur
      * @return the length of the data 
      */
     uint32_t Get_place_xcen(uint32_t *number);		
@@ -136,12 +136,12 @@ public: /* methods */
      * @param number - To set up the data
      * @return true if success, false for failure
      */
-    bool Set_place_xcen(uint32_t number);  
-
+    bool Set_place_xcen(uint32_t number);			
+	
     /**
      * Get ycen attribute of component
      *
-     * @param number - buffer storing data return
+     * @param number - buffer storing data retur
      * @return the length of the data 
      */
     uint32_t Get_place_ycen(uint32_t *number);	
@@ -152,12 +152,12 @@ public: /* methods */
      * @param number - To set up the data
      * @return true if success, false for failure
      */
-    bool Set_place_ycen(uint32_t number);			
-	
+    bool Set_place_ycen(uint32_t number);		
+
     /**
      * Get font attribute of component
      *
-     * @param number - buffer storing data return
+     * @param number - buffer storing data retur
      * @return the length of the data 
      */
     uint32_t getFont(uint32_t *number);		
@@ -168,75 +168,76 @@ public: /* methods */
      * @param number - To set up the data
      * @return true if success, false for failure
      */
-    bool setFont(uint32_t number);	
+    bool setFont(uint32_t number);		
 
     /**
-     * Get picc attribute of component
+     * Get picc0 attribute of component
      *
-     * @param number - buffer storing data return
-     * @return the length of the data 
-     */
-    uint32_t Get_background_cropi_picc(uint32_t *number);	
-
-    /**
-     * Set picc attribute of component
-     *
-     * @param number - To set up the data
-     * @return true if success, false for failure
-     */
-    bool Set_background_crop_picc(uint32_t number);	
-
-    /**
-     * Get picc2 attribute of component
-     *
-     * @param number - buffer storing data return
-     * @return the length of the data 
-     */
-    uint32_t Get_press_background_crop_picc2(uint32_t *number);	
-	
-    /**
-     * Set picc2 attribute of component
-     *
-     * @param number - To set up the data
-     * @return true if success, false for failure
-     */
-    bool Set_press_background_crop_picc2(uint32_t number);		
-
-    /**
-     * Get pic attribute of component
-     *
-     * @param number - buffer storing data return
-     * @return the length of the data 
-     */
-    uint32_t Get_background_image_pic(uint32_t *number);	
-
-    /**
-     * Set pic attribute of component
-     *
-     * @param number - To set up the data
-     * @return true if success, false for failure
-     */
-    bool Set_background_image_pic(uint32_t number);		
-
-    /**
-     * Get pic2 attribute of component
-     *
-     * @param number - buffer storing data return
+     * @param number - buffer storing data retur
      * @return the length of the data 
      */	
-    uint32_t Get_press_background_image_pic2(uint32_t *number);	
+    uint32_t Get_state0_crop_picc0(uint32_t *number);
 
     /**
-     * Set pic2 attribute of component
+     * Set picc0 attribute of component
      *
      * @param number - To set up the data
      * @return true if success, false for failure
      */
-    bool Set_press_background_image_pic2(uint32_t number);				
+    bool Set_state0_crop_picc0(uint32_t number);			
+	
+    /**
+     * Get picc1 attribute of component
+     *
+     * @param number - buffer storing data retur
+     * @return the length of the data 
+     */
+    uint32_t Get_state1_crop_picc1(uint32_t *number);	
+	
+    /**
+     * Set picc1 attribute of component
+     *
+     * @param number - To set up the data
+     * @return true if success, false for failure
+     */
+    bool Set_state1_crop_picc1(uint32_t number);	
+
+    /**
+     * Get pic0 attribute of component
+     *
+     * @param number - buffer storing data retur
+     * @return the length of the data 
+     */
+    uint32_t Get_state0_image_pic0(uint32_t *number);	
+
+    /**
+     * Set pic0 attribute of component
+     *
+     * @param number - To set up the data
+     * @return true if success, false for failure
+     */
+    bool Set_state0_image_pic0(uint32_t number);	
+
+    /**
+     * Get pic1 attribute of component
+     *
+     * @param number - buffer storing data retur
+     * @return the length of the data 
+     */
+    uint32_t Get_state1_image_pic1(uint32_t *number);		
+	
+    /**
+     * Set pic1 attribute of component
+     *
+     * @param number - To set up the data
+     * @return true if success, false for failure
+     */
+    bool Set_state1_image_pic1(uint32_t number);			
 };
 /**
  * @}
  */
 
 
-#endif /* #ifndef __NEXBUTTON_H__ */
+
+#endif /* #ifndef __NEXDSBUTTON_H__ */

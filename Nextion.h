@@ -26,7 +26,6 @@
 #include "NexCrop.h"
 #include "NexGauge.h"
 #include "NexHotspot.h"
-#include "NexNumber.h"
 #include "NexPage.h"
 #include "NexPicture.h"
 #include "NexProgressBar.h"
@@ -34,7 +33,13 @@
 #include "NexText.h"
 #include "NexWaveform.h"
 #include "NexTimer.h"
-#include "NexVar.h"
-
+#include "NexNumber.h"
+#include "NexDualStateButton.h"
+#include "NexVariable.h"
+#include "NexCheckbox.h"
+#include "NexRadio.h"
+#include "NexScrolltext.h"
+#include "NexGpio.h"
+#include "NexRtc.h"
 
 #endif /* #ifndef __NEXTION_H__ */
