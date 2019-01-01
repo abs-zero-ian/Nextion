@@ -34,7 +34,19 @@
 /**
  * Define nexSerial for communicate with Nextion touch panel. 
  */
-//#define nexSerial SoftwareSerial
+#ifdef ESP8266
+	#include <SoftwareSerial.h>
+	#define nextionTxPin 12		// Using pin D5
+	#define nextionRxPin 14		// Using pin D6
+	#define nextionSerial SoftwareSerial	// No second serial port on ESP8266
+#elif defined ESP32
+	#define nextionSerial Serial2		// User Serial2 as we can define pins easily
+	#define nextionTxPin 16		// Using pin GPIO16
+	#define nextionRxPin 17		// Using pin GPIO17
+#else
+	#include <SoftwareSerial.h>		// for now assuming Arduino Nano etc
+	#define nextionSerial SoftwareSerial
+#endif
 
 
 #ifdef DEBUG_SERIAL_ENABLE

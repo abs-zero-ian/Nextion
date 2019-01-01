@@ -28,7 +28,7 @@
  * 
  * @return true if success, false for failure. 
  */
-bool nexInit(void);
+bool nexInit();  //uint8_t nextionTxPin, uint8_t nextionRxPin);
 
 /**
  * Listen touch event and calling callbacks attached before.

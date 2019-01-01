@@ -13,9 +13,17 @@
  * the License, or (at your option) any later version.
  */
 #include "NexHardware.h"
-#include "SoftwareSerial.h"
+//#include "SoftwareSerial.h"
 
-SoftwareSerial nexSerial(14, 12); // RX, TX  (D5, D6)
+#ifdef ESP8266
+	SoftwareSerial nextionSerial(nextionRxPin, nextionTxPin); // RX, TX  (D5, D6)
+#elif defined ESP32
+	// #define nextionSerial Serial2   // nothing to do as this is defined in nexConfig.h
+#else
+
+#endif
+
+
 
 #define NEX_RET_CMD_FINISHED            (0x01)
 #define NEX_RET_EVENT_LAUNCHED          (0x88)
@@ -55,8 +63,8 @@ bool recvRetNumber(uint32_t *number, uint32_t timeout)
         goto __return;
     }
     
-    nexSerial.setTimeout(timeout);
-    if (sizeof(temp) != nexSerial.readBytes((char *)temp, sizeof(temp)))
+    nextionSerial.setTimeout(timeout);
+    if (sizeof(temp) != nextionSerial.readBytes((char *)temp, sizeof(temp)))
     {
         goto __return;
     }
@@ -114,9 +122,9 @@ uint16_t recvRetString(char *buffer, uint16_t len, uint32_t timeout)
     start = millis();
     while (millis() - start <= timeout)
     {
-        while (nexSerial.available())
+        while (nextionSerial.available())
         {
-            c = nexSerial.read();
+            c = nextionSerial.read();
             if (str_start_flag)
             {
                 if (0xFF == c)
@@ -166,15 +174,15 @@ __return:
  */
 void sendCommand(const char* cmd)
 {
-    while (nexSerial.available())
+    while (nextionSerial.available())
     {
-        nexSerial.read();
+        nextionSerial.read();
     }
     
-    nexSerial.print(cmd);
-    nexSerial.write(0xFF);
-    nexSerial.write(0xFF);
-    nexSerial.write(0xFF);
+    nextionSerial.print(cmd);
+    nextionSerial.write(0xFF);
+    nextionSerial.write(0xFF);
+    nextionSerial.write(0xFF);
 }
 
 
@@ -192,8 +200,8 @@ bool recvRetCommandFinished(uint32_t timeout)
     bool ret = false;
     uint8_t temp[4] = {0};
     
-    nexSerial.setTimeout(timeout);
-    if (sizeof(temp) != nexSerial.readBytes((char *)temp, sizeof(temp)))
+    nextionSerial.setTimeout(timeout);
+    if (sizeof(temp) != nextionSerial.readBytes((char *)temp, sizeof(temp)))
     {
         ret = false;
     }
@@ -226,7 +234,7 @@ bool nexInit(void)
     bool ret2 = false;
     
     dbSerialBegin(115200);
-    nexSerial.begin(9600);
+    nextionSerial.begin(9600);
     sendCommand("");
     sendCommand("bkcmd=1");
     ret1 = recvRetCommandFinished();
@@ -242,19 +250,19 @@ void nexLoop(NexTouch *nex_listen_list[])
     uint16_t i;
     uint8_t c;  
     
-    while (nexSerial.available() > 0)
+    while (nextionSerial.available() > 0)
     {   
         delay(10);
-        c = nexSerial.read();
+        c = nextionSerial.read();
         
         if (NEX_RET_EVENT_TOUCH_HEAD == c)
         {
-            if (nexSerial.available() >= 6)
+            if (nextionSerial.available() >= 6)
             {
                 __buffer[0] = c;  
                 for (i = 1; i < 7; i++)
                 {
-                    __buffer[i] = nexSerial.read();
+                    __buffer[i] = nextionSerial.read();
                 }
                 __buffer[i] = 0x00;
                 
