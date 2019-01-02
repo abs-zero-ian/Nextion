@@ -250,7 +250,10 @@ void nexLoop(NexTouch *nex_listen_list[])
     uint16_t i;
     uint8_t c;  
     
-    while (nextionSerial.available() > 0)
+    #ifdef ESP8266
+	yield();
+    #endif    
+while (nextionSerial.available() > 0)
     {   
         delay(10);
         c = nextionSerial.read();
