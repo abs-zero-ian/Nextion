@@ -4,9 +4,7 @@
  * 
  * This sketch will run a simple demo with two-way communication with the display - a number is displayed
  * with two buttens marked '-' and '+'.  The displayed number is read from the display and incremented or
- * decremented depending on which buttonis pressed and the result is written back to the display.
- *
- * The InternetAppStory (IAS) boilerplate is present to allow this sketch to be compiled as an IAS app
+ * decremented depending on which button is pressed and the result is written back to the display.
  * 
  * This sketch should be used with the Nextion TFT files included in this folder:
  * 
