@@ -18,9 +18,9 @@
 #ifdef ESP8266
 	SoftwareSerial nextionSerial(nextionRxPin, nextionTxPin); // RX, TX  (D5, D6)
 #elif defined ESP32
-	// #define nextionSerial Serial2   // nothing to do as this is defined in nexConfig.h
+	// #define nextionSerial Serial2   	// nothing to do as this is defined in nexConfig.h
 #else
-
+						// Don't know what we need to do for Arduino yet (detect UNO/ProMini vs Mega)
 #endif
 
 
